@@ -121,6 +121,7 @@ function App() {
               <li><button className={activeSection === 'projects' ? 'active' : ''} onClick={() => scrollToSection('projects')}>Projects</button></li>
               <li><button className={activeSection === 'experience' ? 'active' : ''} onClick={() => scrollToSection('experience')}>Experience</button></li>
               <li><button className={activeSection === 'education' ? 'active' : ''} onClick={() => scrollToSection('education')}>Education</button></li>
+              <li><button className={activeSection === 'achievements' ? 'active' : ''} onClick={() => scrollToSection('achievements')}>Achievements</button></li>
               <li><button className={activeSection === 'contact' ? 'active' : ''} onClick={() => scrollToSection('contact')}>Contact</button></li>
             </ul>
           </nav>
@@ -389,29 +390,243 @@ function App() {
         </div>
       </section>
 
-      {/* Certifications Section */}
-      <section id="certifications" className="certifications-section">
-        <h2 className="section-title">Certifications & Achievements</h2>
-        <div className="certifications-grid">
-          <div className="cert-card">
-            <h3>SIH Internal Hackathon</h3>
-            <p>Rishihood, SIH</p>
-            <span className="cert-date">September 2025</span>
-            <p className="cert-desc">Cleared SIH internal hackathon 2x</p>
+      {/* Achievements Section */}
+      <section id="achievements" className="achievements-section">
+        <h2 className="section-title">Achievements & Certifications</h2>
+        
+        {/* Hackathons */}
+        <div className="achievement-category">
+          <h3 className="category-title">🏆 Hackathons & Competitions</h3>
+          <div className="achievements-grid">
+            <div className="achievement-card featured">
+              <div className="achievement-header">
+                <h4>Hackground India 2K25</h4>
+                <span className="achievement-date">September 2025</span>
+              </div>
+              <p className="achievement-org">Top Vine Networks</p>
+              <p className="achievement-desc">Competed with 7,000+ innovators in a 36-hour national hybrid hackathon. Demonstrated exceptional problem-solving skills and innovative thinking in a highly competitive environment.</p>
+              <div className="achievement-skills">
+                <span>Innovation</span>
+                <span>Problem Solving</span>
+                <span>Team Collaboration</span>
+                <span>Rapid Prototyping</span>
+              </div>
+              <div className="achievement-id">ID: HG2K25-7000</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>CodeStorm 2025</h4>
+                <span className="achievement-date">September 2025</span>
+              </div>
+              <p className="achievement-org">BK Birla Institute of Engineering and Technology</p>
+              <p className="achievement-desc">Showcased teamwork and software development skills in a competitive coding event. Demonstrated proficiency in collaborative programming and problem-solving under pressure.</p>
+              <div className="achievement-skills">
+                <span>Team Collaboration</span>
+                <span>Software Development</span>
+                <span>Problem Solving</span>
+              </div>
+              <div className="achievement-id">ID: CS2025-TEAM</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>Consilium 25</h4>
+                <span className="achievement-date">August 2025</span>
+              </div>
+              <p className="achievement-org">NSUT Delhi</p>
+              <p className="achievement-desc">Developed responsive web applications using HTML, CSS, and JavaScript, React in a national web development competition. Showcased frontend development skills and responsive design principles.</p>
+              <div className="achievement-skills">
+                <span>Web Development</span>
+                <span>HTML</span>
+                <span>CSS</span>
+                <span>JavaScript</span>
+                <span>Responsive Design</span>
+              </div>
+              <div className="achievement-id">ID: CONS25-WEB</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>AISS Hackathon</h4>
+                <span className="achievement-date">July 2025</span>
+              </div>
+              <p className="achievement-org">IIIT Delhi</p>
+              <p className="achievement-desc">Built AI/ML-driven solutions through rapid prototyping and teamwork in a hackathon. Demonstrated expertise in artificial intelligence and machine learning applications.</p>
+              <div className="achievement-skills">
+                <span>AI/ML</span>
+                <span>Rapid Prototyping</span>
+                <span>Team Collaboration</span>
+                <span>Innovation</span>
+              </div>
+              <div className="achievement-id">ID: AISS2025-AI</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>Odoo Hackathon - Top 50 Nationally</h4>
+                <span className="achievement-date">June 2025</span>
+              </div>
+              <p className="achievement-org">Odoo Company</p>
+              <p className="achievement-desc">Ranked Top 50 nationally for developing innovative ERP solutions in a hackathon. Showcased enterprise application development skills and backend skills and innovative problem-solving.</p>
+              <div className="achievement-skills">
+                <span>ERP Development</span>
+                <span>Innovation</span>
+                <span>Enterprise Solutions</span>
+                <span>Problem Solving</span>
+              </div>
+              <div className="achievement-id">ID: ODOO2025-TOP50</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>Adobe Hackathon</h4>
+                <span className="achievement-date">June 2025</span>
+              </div>
+              <p className="achievement-org">Adobe</p>
+              <p className="achievement-desc">Built scalable solutions using Adobe tools, showcasing UI/UX and frontend skills in a national hackathon. Demonstrated proficiency with Adobe's creative suite and development tools.</p>
+              <div className="achievement-skills">
+                <span>Adobe Tools</span>
+                <span>UI/UX Design</span>
+                <span>Frontend Development</span>
+                <span>Creative Solutions</span>
+              </div>
+              <div className="achievement-id">ID: ADOBE2025-UI</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>NIT Kurukshetra Mathathon - 16th Rank</h4>
+                <span className="achievement-date">October 2024</span>
+              </div>
+              <p className="achievement-org">NIT Kurukshetra</p>
+              <p className="achievement-desc">Secured 16th Rank in a national-level coding competition, showcasing strong problem-solving and algorithmic skills. Demonstrated excellence in competitive programming and mathematical problem-solving.</p>
+              <div className="achievement-skills">
+                <span>Competitive Programming</span>
+                <span>Algorithms</span>
+                <span>Problem Solving</span>
+                <span>Mathematics</span>
+              </div>
+              <div className="achievement-id">ID: NIT-MATH-2024-16</div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>Scratch Hackathon - 1st Rank</h4>
+                <span className="achievement-date">September 2024</span>
+              </div>
+              <p className="achievement-org">Newton School of Technology</p>
+              <p className="achievement-desc">Secured 1st Rank in college Game Development Hackathon by creating an innovative game prototype. Demonstrated exceptional creativity, technical skills, and game development expertise.</p>
+              <div className="achievement-skills">
+                <span>Game Development</span>
+                <span>Creativity</span>
+                <span>Technical Skills</span>
+                <span>Innovation</span>
+              </div>
+              <div className="achievement-id">ID: NST-SCRATCH-2024-1</div>
+            </div>
           </div>
-          
-          <div className="cert-card">
-            <h3>FitFusion IIT R Hackathon</h3>
-            <p>IIT Roorkee</p>
-            <span className="cert-date">April 2025</span>
-            <p className="cert-desc">Built a fitness app using React Native and Express, Prisma PostgreSQL on backend and Secured 2nd position.</p>
+        </div>
+
+        {/* Certifications */}
+        <div className="achievement-category">
+          <h3 className="category-title">📜 Certifications</h3>
+          <div className="achievements-grid">
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>AI Finance Hackathon - Certificate of Participation</h4>
+                <span className="achievement-date">March 2025</span>
+              </div>
+              <p className="achievement-org">IIT Kanpur - Techkriti'25</p>
+              <p className="achievement-desc">Successfully participated in AI Finance Hackathon at Techkriti'25, Annual Technical and Entrepreneurial festival of IIT KANPUR.</p>
+              <div className="achievement-skills">
+                <span>AI/ML</span>
+                <span>Finance Technology</span>
+                <span>Innovation</span>
+              </div>
+              <a href="https://mail.google.com/mail/u/1/#search/iit+kanpur/FMfcgzQZTzcPQskVfHHCKtBSsQnSPfTn?projector=1&messagePartId=0.3" target="_blank" rel="noopener noreferrer" className="verify-link">Verify Certificate</a>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>FitFusion - Certificate of Participation</h4>
+                <span className="achievement-date">April 2025</span>
+              </div>
+              <p className="achievement-org">IIT Roorkee - Cognizance 2025</p>
+              <p className="achievement-desc">Certificate of participation for events during Cognizance 2025, annual technical fest of IIT Roorkee.</p>
+              <div className="achievement-skills">
+                <span>Fitness Technology</span>
+                <span>Mobile Development</span>
+                <span>Innovation</span>
+              </div>
+              <a href="https://hyperstack.id/credential/17d8b23a-2f26-4191-8b04-6679ff9d55ce?view=recipient" target="_blank" rel="noopener noreferrer" className="verify-link">Verify Certificate</a>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>FitFusion - Certificate of Merit (2nd Place)</h4>
+                <span className="achievement-date">May 2025</span>
+              </div>
+              <p className="achievement-org">IIT Roorkee - Cognizance 2025</p>
+              <p className="achievement-desc">Certificate of merit for winning events at Cognizance 25, annual technical fest of IIT Roorkee.</p>
+              <div className="achievement-skills">
+                <span>Fitness Technology</span>
+                <span>Mobile Development</span>
+                <span>Innovation</span>
+                <span>Team Leadership</span>
+              </div>
+              <a href="https://hyperstack.id/credential/98b4acf5-c719-483e-a3a8-6aac61181695?view=recipient" target="_blank" rel="noopener noreferrer" className="verify-link">Verify Certificate</a>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>AISS Hackathon - Certificate of Participation</h4>
+                <span className="achievement-date">July 2025</span>
+              </div>
+              <p className="achievement-org">IIIT Delhi - CAI</p>
+              <p className="achievement-desc">Certificate of participation for the Artificial Intelligence Summer School (AISS) Hackathon organized by CAI IIIT Delhi.</p>
+              <div className="achievement-skills">
+                <span>AI/ML</span>
+                <span>Machine Learning</span>
+                <span>Innovation</span>
+              </div>
+              <div className="achievement-id">Certificate Available</div>
+            </div>
           </div>
-          
-          <div className="cert-card">
-            <h3>Open Source Contributor</h3>
-            <p>RISC-V DB</p>
-            <span className="cert-date">Ongoing</span>
-            <p className="cert-desc">Active open source contributor with 1 merged PR and 80+ GitHub contributions</p>
+        </div>
+
+        {/* Other Achievements */}
+        <div className="achievement-category">
+          <h3 className="category-title">🌟 Other Achievements</h3>
+          <div className="achievements-grid">
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>SIH Internal Hackathon</h4>
+                <span className="achievement-date">September 2025</span>
+              </div>
+              <p className="achievement-org">Rishihood, SIH</p>
+              <p className="achievement-desc">Cleared SIH internal hackathon 2x, demonstrating consistent problem-solving and innovation skills.</p>
+              <div className="achievement-skills">
+                <span>Problem Solving</span>
+                <span>Innovation</span>
+                <span>Consistency</span>
+              </div>
+            </div>
+
+            <div className="achievement-card">
+              <div className="achievement-header">
+                <h4>Open Source Contributor</h4>
+                <span className="achievement-date">Ongoing</span>
+              </div>
+              <p className="achievement-org">RISC-V DB</p>
+              <p className="achievement-desc">Active open source contributor with 1 merged PR and 80+ GitHub contributions, contributing to the open source community.</p>
+              <div className="achievement-skills">
+                <span>Open Source</span>
+                <span>Git</span>
+                <span>Collaboration</span>
+                <span>Community</span>
+              </div>
+            </div>
           </div>
         </div>
       </section>

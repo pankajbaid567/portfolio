@@ -877,6 +877,189 @@ section {
   line-height: 1.6;
 }
 
+/* Achievements Section */
+.achievements-section {
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.achievement-category {
+  margin-bottom: 4rem;
+}
+
+.category-title {
+  font-size: 1.8rem;
+  color: var(--accent-teal);
+  margin-bottom: 2rem;
+  text-align: center;
+  position: relative;
+}
+
+.category-title::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: var(--gradient-primary);
+  border-radius: 2px;
+}
+
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 2rem;
+}
+
+.achievement-card {
+  background: var(--gradient-card);
+  padding: 2rem;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 191, 255, 0.1);
+  transition: all var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-card.featured {
+  border: 2px solid var(--accent-blue);
+  box-shadow: 0 0 20px rgba(0, 191, 255, 0.2);
+}
+
+.achievement-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gradient-primary);
+  transform: scaleX(0);
+  transition: transform var(--transition-smooth);
+}
+
+.achievement-card:hover::before {
+  transform: scaleX(1);
+}
+
+.achievement-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+  border-color: var(--accent-blue);
+}
+
+.achievement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.achievement-header h4 {
+  color: var(--accent-teal);
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin: 0;
+  flex: 1;
+  min-width: 200px;
+}
+
+.achievement-date {
+  color: var(--accent-blue);
+  font-weight: 500;
+  background: rgba(0, 191, 255, 0.1);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 191, 255, 0.2);
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.achievement-org {
+  color: var(--text-primary);
+  font-weight: 500;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.achievement-desc {
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.achievement-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.achievement-skills span {
+  background: rgba(0, 191, 255, 0.1);
+  color: var(--accent-blue);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  border: 1px solid rgba(0, 191, 255, 0.2);
+  transition: all var(--transition-fast);
+}
+
+.achievement-skills span:hover {
+  background: rgba(0, 191, 255, 0.2);
+  transform: translateY(-2px);
+}
+
+.achievement-id {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 191, 255, 0.1);
+}
+
+.verify-link {
+  display: inline-block;
+  background: var(--gradient-primary);
+  color: var(--white);
+  padding: 0.5rem 1rem;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all var(--transition-smooth);
+  margin-top: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.verify-link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.verify-link:hover::before {
+  left: 100%;
+}
+
+.verify-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 191, 255, 0.3);
+}
+
 /* Contact Section */
 .contact-content {
   max-width: 800px;
@@ -1104,6 +1287,19 @@ section {
   
   .projects-grid {
     grid-template-columns: 1fr;
+  }
+
+  .achievements-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .achievement-header h4 {
+    min-width: auto;
   }
 
   .contact-links {
