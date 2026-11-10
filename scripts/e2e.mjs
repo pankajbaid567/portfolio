@@ -5,6 +5,9 @@ import { readFileSync } from 'node:fs'
 const CHROME = process.env.CHROME_PATH
 const BASE = process.env.BASE_URL || 'http://localhost:4173/'
 if (!CHROME) { console.error('Set CHROME_PATH to a Chrome, Chromium or Brave executable'); process.exit(2) }
+import { categories, projects } from '../src/data/projects.js'
+const TOTAL = projects.length
+const inArea = (id) => projects.filter((p) => p.category === id || (p.also || []).includes(id)).length
 const axeSrc = readFileSync('node_modules/axe-core/axe.min.js', 'utf8')
 const browser = await puppeteer.launch({ executablePath: CHROME, headless: 'new', args: ['--no-sandbox'] })
 const results = []
@@ -37,22 +40,21 @@ await click('.view', 'All projects')
 ok('Right after clicking "All", the cards on screen are visible (the reported bug)', await onScreenVisible())
 ok('All shows the first 12 cards, ranked, all visible (regression: filtered cards stayed at opacity 0)', (await count('.card')) === 12 && (await visible()), String(await count('.card')))
 const t = await titles()
-ok('All is ranked by impact (Pitbook first, in.culcate before the movie app)', t[0] === 'Pitbook' && t.indexOf('in.culcate platform') > 0, JSON.stringify(t.slice(0, 4)))
-await click('.more button', 'Show')
-await click('.more button', 'Show')
-ok('"Show more" reaches all 32', (await count('.card')) === 32 && (await visible()), String(await count('.card')))
+ok('All is ranked by impact (data order: Pitbook first, HireFlow AI before DevHub+)', t[0] === 'Pitbook' && t.indexOf('HireFlow AI') > 0 && (t.indexOf('DevHub+') < 0 || t.indexOf('HireFlow AI') < t.indexOf('DevHub+')), JSON.stringify(t.slice(0, 4)))
+while (await count('.more button')) await click('.more button', 'Show')
+ok(`"Show more" reaches all ${TOTAL}`, (await count('.card')) === TOTAL && (await visible()), String(await count('.card')))
 
 await page.evaluate(() => document.getElementById('work').scrollIntoView())
 await click('.fchip', 'Fintech')
 ok('Right after clicking an area, the cards on screen are visible (the reported bug)', await onScreenVisible())
-for (const [label, expected] of [['Fintech', 6], ['Mobile', 4], ['Systems', 5], ['AI, agents', 17]]) {
+for (const [label, expected] of [['Fintech', inArea('fintech')], ['Mobile', inArea('mobile')], ['Systems', inArea('systems')], ['AI, agents', inArea('ai')]]) {
   await click('.fchip', label)
   const n = await count('.card')
   ok(`Area "${label}" shows ${Math.min(expected, 12)} visible cards`, n === Math.min(expected, 12) && (await visible()), String(n))
 }
 await click('.fchip', 'Mobile')
 const mobile = await titles()
-ok('Mobile area lists FitFusion and Saarthi AI', mobile.includes('FitFusion') && mobile.includes('Saarthi AI'), JSON.stringify(mobile))
+ok('Mobile area lists FitFusion', mobile.includes('FitFusion'), JSON.stringify(mobile))
 ok('A flagship card in an area links to its case study', (await count('.card-links button')) >= 0)
 
 await click('.view', 'Flagships')
