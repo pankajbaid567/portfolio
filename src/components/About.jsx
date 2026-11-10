@@ -15,7 +15,7 @@ export default function About() {
         <div className="about-copy">
           <SectionHead index="07" label="About" id="about-h" title={<>Hi, I’m Pankaj. I like the part of software that <em>keeps working</em> after the demo.</>} />
           <div className="prose" data-reveal>
-            <p>I’m a second-year B.Tech student in Computer Science and AI at Newton School of Technology (Rishihood University), and I was a founding engineer at in.culcate for nineteen months before going deep on systems work.</p>
+            <p>I’m a third-year B.Tech student in Computer Science and AI at Newton School of Technology (Rishihood University), and I was a founding engineer at in.culcate for nineteen months before going deep on systems work.</p>
             <p>My projects start with a question: what must never be false? A ledger that doesn’t sum to zero, an acknowledged write that disappears after a crash, a payment captured twice. I write that down as an invariant, make the database or a test enforce it, and then attack it with random kills, reference models and injected bugs.</p>
             <p>I’m looking for an SDE internship where backend, data or infrastructure work is taken seriously, and where I can learn from people who have run these systems in production.</p>
           </div>

@@ -1,4 +1,4 @@
-import { useDeferredValue, useMemo, useState } from 'react'
+import { useDeferredValue, useEffect, useMemo, useState } from 'react'
 import { categories, projects } from '../data/projects'
 import { skillAliases, skillMatches } from '../data/skills'
 import { ArrowUpRight, Github, Search } from './Icons'
@@ -23,7 +23,7 @@ function CatLabel({ p }) {
   return (
     <span className="catlabel" style={{ '--h': c.hue }}>
       <i /> {c.label}
-      {p.also?.length > 0 && <span className="also"> · {p.also.map((a) => catById[a].label.split(' ')[0]).join(', ')}</span>}
+      {p.also?.length > 0 && <span className="also"> · {p.also.map((a) => catById[a].label.split(' ')[0].replace(/,$/, '')).join(', ')}</span>}
     </span>
   )
 }
@@ -64,18 +64,22 @@ function Featured({ p, flip }) {
   )
 }
 
-function Card({ p, i }) {
+function Card({ p, i, onCase }) {
   const spot = useSpotlight()
   return (
     <article id={`proj-${p.id}`} className="card spot" onPointerMove={spot} data-reveal style={{ '--delay': `${(i % 3) * 60}ms` }}>
       <div className="case-meta"><CatLabel p={p} /><StatusPill status={p.status} /></div>
-      <h3 className="card-title">{p.name}</h3>
+      <h3 className="card-title">{p.name}{p.featured && <span className="flag" title="Flagship project">★ Flagship</span>}</h3>
       <p className="card-tag">{p.tagline}</p>
+      {p.featured && (
+        <p className="card-win"><b>{p.results[0].v}</b><span>{p.results[0].l}</span></p>
+      )}
       {p.note && <p className="caveat"><b>Note.</b> {p.note}</p>}
       <div className="chips">{p.stack.slice(0, 5).map((s) => <Chip key={s}>{s}</Chip>)}</div>
       <div className="card-foot">
         <span className="when">{p.when}</span>
         <span className="card-links">
+          {p.featured && <button type="button" onClick={() => onCase(p.id)}>Case study <ArrowUpRight size={14} /></button>}
           {p.links.live && <a href={p.links.live} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} live demo`}>Live <ArrowUpRight size={14} /></a>}
           {p.links.repo && <a href={p.links.repo} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} source code`}><Github size={14} /> Code</a>}
         </span>
@@ -84,24 +88,42 @@ function Card({ p, i }) {
   )
 }
 
-const matches = (p, cat, q) => {
-  if (cat !== 'all' && p.category !== cat && !(p.also || []).includes(cat)) return false
+const matches = (p, scope, q) => {
+  if (scope === 'flagships' && !p.featured) return false
+  if (scope !== 'flagships' && scope !== 'all' && p.category !== scope && !(p.also || []).includes(scope)) return false
   if (!q) return true
   if (skillAliases[q.trim()]) return skillMatches(q.trim(), p.stack.join(' ')) // a skill chip passes its exact name
   const hay = `${p.name} ${p.tagline} ${p.stack.join(' ')} ${p.when} ${catById[p.category].label}`.toLowerCase()
   return q.toLowerCase().split(/\s+/).filter(Boolean).every((w) => hay.includes(w))
 }
 
+const PAGE = 12
+const flagshipCount = projects.filter((p) => p.featured).length
+
 export default function Work({ query, setQuery }) {
-  const [cat, setCat] = useState('all')
-  const [all, setAll] = useState(false)
+  const [view, setView] = useState('flagships') // 'flagships' | 'all' | a category id
+  const [shown, setShown] = useState(PAGE)
   const dq = useDeferredValue(query)
-  const list = useMemo(() => projects.filter((p) => matches(p, cat, dq)), [cat, dq])
-  const featured = list.filter((p) => p.featured)
-  const rest = list.filter((p) => !p.featured)
+  const searching = dq.trim().length > 0
+  const scope = searching ? 'all' : view // a search always looks through every project
+  const list = useMemo(() => projects.filter((p) => matches(p, scope, dq)), [scope, dq])
   const counts = useMemo(() => Object.fromEntries(categories.map((c) => [c.id, projects.filter((p) => p.category === c.id || (p.also || []).includes(c.id)).length])), [])
-  const filtering = cat !== 'all' || dq
-  const visibleRest = all || filtering ? rest : rest.slice(0, 9)
+
+  const pick = (v) => { setView(v); setShown(PAGE); setQuery('') }
+  const openCase = (id) => {
+    pick('flagships')
+    setTimeout(() => document.getElementById(`proj-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 140)
+  }
+  useEffect(() => {
+    const h = (e) => openCase(e.detail)
+    window.addEventListener('pb:case', h)
+    return () => window.removeEventListener('pb:case', h)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const isFlag = scope === 'flagships'
+  const visible = isFlag ? list : list.slice(0, shown)
+  const label = searching ? `Results for “${dq.trim()}”` : view === 'all' ? 'All projects, ranked by impact' : catById[view] ? `${catById[view].label}, ranked by impact` : ''
 
   return (
     <section id="work" className="section" aria-labelledby="work-h">
@@ -109,40 +131,52 @@ export default function Work({ query, setQuery }) {
         <SectionHead
           index="01" label="Work" id="work-h"
           title={<>Systems I <em>trust</em> because I tried to break them.</>}
-          intro={`${projects.length} projects across seven areas. The eight case studies come first, each with its measured results, its limits, and the command that reproduces them. The rest are below.`}
+          intro={`Start with the ${flagshipCount} flagships: full case studies with measured results, stated limits and a reproduce command. The other ${projects.length - flagshipCount} projects are one click away, ranked by impact.`}
         />
 
-        <div className="filters" role="group" aria-label="Filter projects">
-          <div className="filter-chips">
-            <button type="button" className={`fchip ${cat === 'all' ? 'on' : ''}`} aria-pressed={cat === 'all'} onClick={() => setCat('all')}>All <b>{projects.length}</b></button>
+        <div className="filters">
+          <div className="filter-top">
+            <div className="views" role="group" aria-label="Project view">
+              <button type="button" className={`view ${!searching && view === 'flagships' ? 'on' : ''}`} aria-pressed={!searching && view === 'flagships'} onClick={() => pick('flagships')}>★ Flagships <b>{flagshipCount}</b></button>
+              <button type="button" className={`view ${!searching && view === 'all' ? 'on' : ''}`} aria-pressed={!searching && view === 'all'} onClick={() => pick('all')}>All projects <b>{projects.length}</b></button>
+            </div>
+            <label className="search">
+              <Search size={16} />
+              <input type="search" placeholder="Search all projects or tech (Go, Redis, RAG…)" value={query} onChange={(e) => { setQuery(e.target.value); setShown(PAGE) }} aria-label="Search projects" />
+            </label>
+          </div>
+          <div className="filter-chips" role="group" aria-label="Browse by area">
+            <span className="chips-label">Browse by area</span>
             {categories.map((c) => (
-              <button key={c.id} type="button" className={`fchip ${cat === c.id ? 'on' : ''}`} aria-pressed={cat === c.id} style={{ '--h': c.hue }} onClick={() => setCat(c.id)}>
+              <button key={c.id} type="button" className={`fchip ${!searching && view === c.id ? 'on' : ''}`} aria-pressed={!searching && view === c.id} style={{ '--h': c.hue }} onClick={() => pick(c.id)}>
                 <i /> {c.label} <b>{counts[c.id]}</b>
               </button>
             ))}
           </div>
-          <label className="search">
-            <Search size={16} />
-            <input type="search" placeholder="Search projects or tech (Go, Redis, RAG…)" value={query} onChange={(e) => setQuery(e.target.value)} aria-label="Search projects" />
-          </label>
         </div>
 
-        {list.length === 0 && <p className="empty">No project matches. <button type="button" className="btn-link" onClick={() => { setCat('all'); setQuery('') }}>Clear filters</button></p>}
+        {list.length === 0 && <p className="empty">No project matches. <button type="button" className="btn-link" onClick={() => pick('flagships')}>Back to flagships</button></p>}
 
-        {featured.length > 0 && (
-          <div className="cases">
-            {featured.map((p, i) => <Featured key={p.id} p={p} flip={i % 2 === 1} />)}
-          </div>
+        {isFlag && list.length > 0 && (
+          <>
+            <div className="cases">
+              {list.map((p, i) => <Featured key={p.id} p={p} flip={i % 2 === 1} />)}
+            </div>
+            <div className="more-work" data-reveal>
+              <p><b>{projects.length - flagshipCount} more projects</b> across AI agents, fintech, web, mobile and ML, ranked by impact.</p>
+              <button type="button" className="btn btn-ghost" onClick={() => pick('all')}>Browse all {projects.length} projects</button>
+            </div>
+          </>
         )}
 
-        {rest.length > 0 && (
+        {!isFlag && list.length > 0 && (
           <>
-            <h3 className="subhead" data-reveal>{filtering ? 'More matches' : 'Everything else I’ve built'} <span>{rest.length}</span></h3>
+            <h3 className="subhead" key={label}>{label} <span>{list.length}</span></h3>
             <div className="grid">
-              {visibleRest.map((p, i) => <Card key={p.id} p={p} i={i} />)}
+              {visible.map((p, i) => <Card key={p.id} p={p} i={i} onCase={openCase} />)}
             </div>
-            {!filtering && !all && rest.length > 9 && (
-              <div className="more"><button type="button" className="btn btn-ghost" onClick={() => setAll(true)}>Show all {rest.length} projects</button></div>
+            {list.length > visible.length && (
+              <div className="more"><button type="button" className="btn btn-ghost" onClick={() => setShown((n) => n + PAGE)}>Show {Math.min(PAGE, list.length - visible.length)} more ({list.length - visible.length} left)</button></div>
             )}
           </>
         )}

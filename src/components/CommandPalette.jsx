@@ -23,7 +23,7 @@ export default function CommandPalette({ open, onClose, onTheme }) {
     const open_ = (href) => () => window.open(href, '_blank', 'noopener')
     return [
       ...NAV.map((n) => ({ group: 'Go to', label: n.label, run: go(n.id) })),
-      ...projects.filter((p) => p.featured).map((p) => ({ group: 'Case studies', label: p.name, hint: p.tagline.slice(0, 60), run: go(`proj-${p.id}`) })),
+      ...projects.filter((p) => p.featured).map((p) => ({ group: 'Flagships', label: p.name, hint: p.tagline.slice(0, 60), run: () => window.dispatchEvent(new CustomEvent('pb:case', { detail: p.id })) })),
       ...projects.filter((p) => !p.featured && p.links.live).map((p) => ({ group: 'Live demos', label: p.name, hint: 'opens the demo', run: open_(p.links.live) })),
       { group: 'Links', label: 'GitHub', run: open_(profile.github) },
       { group: 'Links', label: 'LinkedIn', run: open_(profile.linkedin) },
