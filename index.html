@@ -1,20 +1,33 @@
-baid/Portfolio/portfolio/index.html -->
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Pankaj Baid - Full Stack Developer Portfolio | React.js, Node.js, Express.js, PostgreSQL, MongoDB, Prisma | LeetCode 100+ Problems | CodeChef 1239 Rating">
-    <meta name="keywords" content="Pankaj Baid, Full Stack Developer, React.js, Node.js, Express.js, PostgreSQL, MongoDB, Prisma, Portfolio, Web Developer, JavaScript, TypeScript">
-    <meta name="author" content="Pankaj Baid">
-    <title>Pankaj Baid | Full Stack Developer Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Pankaj Baid · Backend &amp; distributed-systems engineer</title>
+    <meta name="description" content="Pankaj Baid builds backend and distributed systems, then tries to break them: crash-tested ledgers, databases and queues with measured results. B.Tech CSAI 2028, open to SDE internships." />
+    <meta name="author" content="Pankaj Baid" />
+    <meta name="theme-color" content="#f7f4ee" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Pankaj Baid · Backend & distributed-systems engineer" />
+    <meta property="og:description" content="Crash-tested ledgers, databases and queues with measured results, plus open-source fixes merged into Hugging Face Transformers, AOSSIE and FOSSASIA." />
+    <meta property="og:image" content="/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script>
+      // set the theme before first paint to avoid a flash
+      try {
+        var t = localStorage.getItem('pb-theme');
+        var dark = t === 'dark' || ((!t || t === 'system') && matchMedia('(prefers-color-scheme: dark)').matches);
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      } catch (e) {}
+    </script>
+    <script type="application/ld+json">
+      {"@context":"https://schema.org","@type":"Person","name":"Pankaj Baid","jobTitle":"Backend and distributed-systems engineer","alumniOf":"Newton School of Technology, Rishihood University","sameAs":["https://github.com/pankajbaid567","https://www.linkedin.com/in/pankaj-baid-0109b1226/","https://leetcode.com/u/baidpankaj567/"]}
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript><p style="padding:2rem;font-family:system-ui">This portfolio needs JavaScript. Resume: <a href="/resume/Pankaj_Baid_Resume.pdf">PDF</a> · <a href="https://github.com/pankajbaid567">GitHub</a></p></noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
