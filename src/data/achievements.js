@@ -1,0 +1,68 @@
+// Podium results first, then competitive programming, then participation. Old-portfolio entries kept; unverifiable
+// certificate IDs and private e-mail links were dropped.
+export const achievements = [
+  {
+    tier: 'podium',
+    title: 'Amazon ML Challenge 2026',
+    result: 'Team rank 8',
+    detail: 'On the public leaderboard among about 80,000 registered participants.',
+    year: '2026',
+  },
+  {
+    tier: 'podium',
+    title: 'LMNIT–AOSSIE Unstoppable Hackathon',
+    result: 'Winner',
+    detail: 'First place.',
+    year: '',
+  },
+  {
+    tier: 'podium',
+    title: 'Cognizance, IIT Roorkee: app-development hackathon',
+    result: '2nd place',
+    detail: 'Out of 500 participants, with the FitFusion fitness app (React Native, Express, PostgreSQL).',
+    year: '2025',
+    link: { label: 'Certificate of merit', href: 'https://hyperstack.id/credential/98b4acf5-c719-483e-a3a8-6aac61181695?view=recipient' },
+  },
+  {
+    tier: 'podium',
+    title: 'Odoo Hackathon',
+    result: 'Top 50 nationally',
+    detail: 'ERP solution with a backend-heavy build.',
+    year: 'Jun 2025',
+  },
+  {
+    tier: 'podium',
+    title: 'Mathathon, NIT Kurukshetra',
+    result: 'Rank 16',
+    detail: 'National-level coding competition.',
+    year: 'Oct 2024',
+  },
+  {
+    tier: 'podium',
+    title: 'Scratch Hackathon, Newton School of Technology',
+    result: '1st rank',
+    detail: 'College game-development hackathon.',
+    year: 'Sep 2024',
+  },
+  {
+    tier: 'cp',
+    title: 'CodeChef',
+    result: '3-star · rating 1638',
+    detail: 'Contest rating from rated rounds.',
+    year: '',
+    link: { label: 'LeetCode profile', href: 'https://leetcode.com/u/baidpankaj567/' },
+  },
+  {
+    tier: 'cp',
+    title: 'Data structures & algorithms',
+    result: '600+ problems',
+    detail: 'Solved across LeetCode, CodeChef and other platforms.',
+    year: '',
+  },
+  { tier: 'participant', title: 'Hackground India 2K25', result: 'Competed among 7,000+', detail: '36-hour national hybrid hackathon.', year: 'Sep 2025' },
+  { tier: 'participant', title: 'CodeStorm 2025', result: 'Team entry', detail: 'BK Birla Institute of Engineering and Technology.', year: 'Sep 2025' },
+  { tier: 'participant', title: 'Consilium 25', result: 'Web development competition', detail: 'NSUT Delhi: responsive React front end.', year: 'Aug 2025' },
+  { tier: 'participant', title: 'AISS Hackathon', result: 'Participation', detail: 'IIIT Delhi: AI/ML prototype in a team.', year: 'Jul 2025' },
+  { tier: 'participant', title: 'Adobe Hackathon', result: 'Participation', detail: 'UI/UX and front-end build.', year: 'Jun 2025' },
+  { tier: 'participant', title: 'AI Finance Hackathon', result: 'Participation', detail: 'IIT Kanpur, Techkriti ’25.', year: 'Mar 2025' },
+]
