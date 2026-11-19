@@ -231,7 +231,77 @@ function Ring() {
   )
 }
 
-const map = { orderbook: OrderBook, ledger: Ledger, lsm: Lsm, queue: Queue, latency: Latency, chain: Chain, match: Match, ring: Ring }
+function AgentFlow() {
+  const step = (x, y, t, d) => (
+    <g key={t}>
+      <rect x={x} y={y} width="62" height="26" rx="6" fill="var(--surface-2)" stroke="var(--line-2)" className="blk" style={{ '--d': `${d}s` }} />
+      <text x={x + 31} y={y + 17} textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink)">{t}</text>
+    </g>
+  )
+  const bar = (y, label, pct, fill, d, value) => (
+    <g key={label}>
+      <text x="30" y={y} className="v-mono" fontSize="11" fill="var(--ink-2)">{label}</text>
+      <rect x="150" y={y - 11} width="170" height="14" rx="4" fill="var(--bg-2)" stroke="var(--ink-3)" strokeOpacity=".45" />
+      {pct > 0 && <rect x="150" y={y - 11} width={170 * pct} height="14" rx="4" fill={fill} className="grow" style={{ '--d': `${d}s` }} />}
+      <text x="448" y={y} textAnchor="end" className="v-mono" fontSize="11" fill="var(--ink)">{value}</text>
+    </g>
+  )
+  return (
+    <Frame label="A task is planned, independent steps run in parallel, a reviewer checks each answer, and failures are retried or fall back to another model. In a simulated outage of the primary model a single call answers 0% of tasks and the full system 100%.">
+      <rect x="22" y="48" width="58" height="30" rx="7" fill="var(--accent-soft)" stroke="var(--accent)" />
+      <text x="51" y="68" textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink)">plan</text>
+      {step(120, 30, 'step A', 0.1)}{step(120, 62, 'step B', 0.2)}{step(120, 94, 'step C', 0.3)}
+      <rect x="226" y="62" width="64" height="30" rx="7" fill="var(--ok-soft)" stroke="var(--ok)" />
+      <text x="258" y="82" textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink)">review</text>
+      <rect x="338" y="62" width="64" height="30" rx="7" fill="var(--surface-2)" stroke="var(--line-2)" />
+      <text x="370" y="82" textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink)">answer</text>
+      <path d="M80 63C98 63 102 43 120 43" className="v-curve draw" /><path d="M80 63H120" className="v-curve draw" style={{ '--d': '0.1s' }} /><path d="M80 63C98 63 102 107 120 107" className="v-curve draw" style={{ '--d': '0.2s' }} />
+      <path d="M182 43C204 43 206 70 226 70" className="v-curve draw" /><path d="M182 75H226" className="v-curve draw" style={{ '--d': '0.1s' }} /><path d="M182 107C204 107 206 86 226 86" className="v-curve draw" style={{ '--d': '0.2s' }} />
+      <path d="M290 77H338" className="v-curve draw" style={{ '--d': '0.3s' }} />
+      <path d="M258 62C258 28 190 20 160 26" className="v-curve" strokeDasharray="4 3" />
+      <text x="214" y="22" className="v-mono" fontSize="10" fill="var(--ink-3)">retry with feedback</text>
+      <text x="30" y="144" className="v-mono" fontSize="11" fill="var(--ink-3)">simulated: primary model always down (503)</text>
+      {bar(164, 'single call', 0, 'var(--ink-3)', 0, '0%')}
+      {bar(188, 'full system', 1, 'var(--accent)', 0.2, '100%')}
+      <text x="30" y="222" className="v-mono" fontSize="11" fill="var(--ink-3)">simulated: injected faults + 20% weak answers</text>
+      {bar(242, 'single call', 0.367, 'var(--ink-3)', 0, '36.7%')}
+      {bar(266, 'full system', 0.983, 'var(--accent)', 0.2, '98.3%')}
+    </Frame>
+  )
+}
+
+function Cited() {
+  const box = (x, y, w, t, hot) => (
+    <g key={t}>
+      <rect x={x} y={y} width={w} height="28" rx="6" fill={hot ? 'var(--accent-soft)' : 'var(--surface-2)'} stroke={hot ? 'var(--accent)' : 'var(--line-2)'} />
+      <text x={x + w / 2} y={y + 18} textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink)">{t}</text>
+    </g>
+  )
+  return (
+    <Frame label="A question goes through BM25 and dense retrieval, reciprocal rank fusion and a cross-encoder rerank, and ends as a cited clause or an abstention. Held-out nDCG at 10 rises from 0.663 with BM25 alone to 0.800.">
+      {box(24, 30, 86, 'question')}
+      {box(150, 14, 74, 'BM25')}{box(150, 50, 74, 'dense e5')}
+      {box(262, 30, 52, 'RRF')}{box(350, 30, 100, 'cross-encoder')}
+      <path d="M110 44C130 44 130 28 150 28" className="v-curve draw" /><path d="M110 44C130 44 130 64 150 64" className="v-curve draw" style={{ '--d': '0.1s' }} />
+      <path d="M224 28C244 28 244 44 262 44" className="v-curve draw" style={{ '--d': '0.2s' }} /><path d="M224 64C244 64 244 44 262 44" className="v-curve draw" style={{ '--d': '0.3s' }} /><path d="M314 44H350" className="v-curve draw" style={{ '--d': '0.4s' }} />
+      <rect x="130" y="100" width="150" height="34" rx="7" fill="var(--ok-soft)" stroke="var(--ok)" />
+      <text x="205" y="121" textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink)">quote + citation</text>
+      <rect x="300" y="100" width="150" height="34" rx="7" fill="var(--surface-2)" stroke="var(--line-2)" strokeDasharray="4 3" />
+      <text x="375" y="121" textAnchor="middle" className="v-mono" fontSize="11" fill="var(--ink-2)">abstain: no clause</text>
+      <path d="M400 58C400 80 220 80 205 100" className="v-curve" /><path d="M400 58C400 80 380 84 375 100" className="v-curve" strokeDasharray="4 3" />
+      <text x="30" y="176" className="v-mono" fontSize="11" fill="var(--ink-3)">nDCG@10, held-out questions</text>
+      <text x="30" y="204" className="v-mono" fontSize="11" fill="var(--ink-2)">BM25</text>
+      <rect x="150" y="193" width="250" height="14" rx="4" fill="var(--bg-2)" stroke="var(--ink-3)" strokeOpacity=".45" /><rect x="150" y="193" width={250 * 0.663} height="14" rx="4" fill="var(--ink-3)" opacity=".6" className="grow" />
+      <text x="448" y="204" textAnchor="end" className="v-mono" fontSize="11" fill="var(--ink)">0.663</text>
+      <text x="30" y="236" className="v-mono" fontSize="11" fill="var(--ink-2)">hybrid + rerank</text>
+      <rect x="150" y="225" width="250" height="14" rx="4" fill="var(--bg-2)" stroke="var(--ink-3)" strokeOpacity=".45" /><rect x="150" y="225" width={250 * 0.8} height="14" rx="4" fill="var(--accent)" className="grow" style={{ '--d': '0.2s' }} />
+      <text x="448" y="236" textAnchor="end" className="v-mono" fontSize="11" fill="var(--accent-ink)">0.800</text>
+      <text x="30" y="280" className="v-mono" fontSize="11" fill="var(--ink-3)">English abstention: precision 1.00 · recall 0.81</text>
+    </Frame>
+  )
+}
+
+const map = { agentflow: AgentFlow, cited: Cited, orderbook: OrderBook, ledger: Ledger, lsm: Lsm, queue: Queue, latency: Latency, chain: Chain, match: Match, ring: Ring }
 
 export default function ProjectVisual({ kind }) {
   const V = map[kind]

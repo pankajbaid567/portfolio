@@ -6,8 +6,8 @@ export const proof = [
     href: '#work',
   },
   {
-    v: 33, suffix: '', label: 'injected bugs, all caught',
-    sub: 'Mutation checks across Pitbook (5), Counterfoil (7), Drumlin (7), Warrantgate (8) and Bodkin (6).',
+    v: 81, suffix: '', label: 'injected bugs, all caught',
+    sub: 'Mutation checks across Pitbook (5), Counterfoil (7), Drumlin (7), Warrantgate (8), Bodkin (6), Reliable AI Agent (14) and Codicil (34).',
     href: '#method',
   },
   {

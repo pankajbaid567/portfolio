@@ -30,7 +30,7 @@ for (const p of projects) {
     need(p.caveat, `${w}: featured needs a stated limit`)
   }
 }
-need(projects.filter((p) => p.featured).length === 8, 'exactly 8 featured case studies expected')
+need(projects.filter((p) => p.featured).length === 10, 'exactly 10 featured case studies expected')
 for (const c of categories) need(projects.some((p) => p.category === c.id), `category ${c.id} has no project`)
 
 for (const g of skillGroups) for (const s of g.items) need(s in skillAliases || !/^[A-Z]/.test(s) || true, `skill ${s}`)
