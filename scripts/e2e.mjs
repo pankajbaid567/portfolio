@@ -31,7 +31,7 @@ const onScreenVisible = async () => { await new Promise((r) => setTimeout(r, 130
 const titles = () => page.$$eval('.card-title, .case-title', (e) => e.map((x) => x.childNodes[0].textContent))
 const click = async (sel, text) => { const h = await page.evaluateHandle((s2, t) => [...document.querySelectorAll(s2)].find((e) => e.textContent.trim().includes(t)), sel, text); await h.click(); await new Promise((r) => setTimeout(r, 600)) }
 
-ok('default view is Flagships: 8 case studies, no grid', (await count('.case')) === 8 && (await count('.card')) === 0)
+ok('default view is Flagships: 10 case studies, no grid', (await count('.case')) === 10 && (await count('.card')) === 0)
 ok('Flagships is the pressed view', await page.$eval('.view.on', (e) => e.textContent.includes('Flagships')))
 
 await page.reload({ waitUntil: 'networkidle0' })
@@ -58,7 +58,7 @@ ok('Mobile area lists FitFusion', mobile.includes('FitFusion'), JSON.stringify(m
 ok('A flagship card in an area links to its case study', (await count('.card-links button')) >= 0)
 
 await click('.view', 'Flagships')
-ok('Back to Flagships restores the 8 case studies, visibly', (await count('.case')) === 8 && (await onScreenVisible()))
+ok('Back to Flagships restores the 10 case studies, visibly', (await count('.case')) === 10 && (await onScreenVisible()))
 
 // search always looks through every project, even from the Flagships view (fresh page: no state carried over)
 await page.reload({ waitUntil: 'networkidle0' })
@@ -67,7 +67,7 @@ await page.type('.search input', 'redis'); await new Promise((r) => setTimeout(r
 const redis = await titles()
 ok('Search "redis" (from Flagships) finds TaskFlow and Reliable AI Agent', redis.includes('Resilient TaskFlow') && redis.includes('Reliable AI Agent') && (await visible()), JSON.stringify(redis))
 await page.$eval('.search input', (e) => { e.scrollIntoView({ block: 'center' }); e.focus(); e.select() }); await page.keyboard.press('Backspace'); await new Promise((r) => setTimeout(r, 1000))
-ok('Clearing the search returns to the open view', (await count('.case')) === 8, String(await count('.case')))
+ok('Clearing the search returns to the open view', (await count('.case')) === 10, String(await count('.case')))
 
 // skill chip: Go must not match MongoDB
 await page.evaluate(() => document.getElementById('skills').scrollIntoView())

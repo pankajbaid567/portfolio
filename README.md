@@ -5,8 +5,8 @@ Personal site for SDE-internship applications. React 19 + Vite, hand-written CSS
 The idea: a backend engineer's portfolio should be **evidence first**. Every case study carries its measured results, its stated limits, and the command that reproduces it, and the page is built so a recruiter can skim it in 30 seconds or dig in for an hour.
 
 ## What's on the page
-- **Hero** with a live "proof terminal" (excerpts of real crash-test output) and a proof strip: 3,000 SIGKILL runs with 0 lost acknowledged writes, 33 of 33 injected bugs caught, a 168k-star repo with a merged fix, Amazon ML Challenge rank 8.
-- **Work**: 18 projects, ranked by impact. Flagships (8 full case studies) are the default view; "All projects" and seven area buttons are separate views, and search always covers everything. Eight case studies (Pitbook, Counterfoil, Drumlin, Resilient TaskFlow, VITRAM, Warrantgate, Bodkin, cache-cluster), each with a bespoke illustration, results, limits, "the bug I found" and a copy-able reproduce command.
+- **Hero** with a live "proof terminal" (excerpts of real crash-test output) and a proof strip: 3,000 SIGKILL runs with 0 lost acknowledged writes, 81 of 81 injected bugs caught, a 168k-star repo with a merged fix, Amazon ML Challenge rank 8.
+- **Work**: 19 projects, ranked by impact. Flagships (10 full case studies) are the default view; "All projects" and seven area buttons are separate views, and search always covers everything. Ten case studies (Pitbook, Counterfoil, Drumlin, Resilient TaskFlow, VITRAM, Warrantgate, Codicil, Reliable AI Agent, Bodkin, cache-cluster), each with a bespoke illustration, results, limits, "the bug I found" and a copy-able reproduce command.
 - **Open source**: 12 merged PRs in 6 projects (Hugging Face Transformers, FOSSASIA Eventyay, AOSSIE Ell-ena and Hacktoberfest repos) with a PR ledger generated from the GitHub API.
 - **Experience** (in.culcate), **Method** (four habits and field notes on real bugs), **Achievements**, **Toolbox** (click a skill to filter the projects), **About and education**, **Contact**.
 - Command palette (⌘K / Ctrl+K), light and dark themes, keyboard accessible, print stylesheet.

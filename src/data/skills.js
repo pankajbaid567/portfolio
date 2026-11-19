@@ -3,7 +3,7 @@ export const skillGroups = [
   { label: 'Languages', items: ['Go', 'Python', 'TypeScript', 'JavaScript', 'Java', 'SQL', 'C++'] },
   { label: 'Backend & data', items: ['PostgreSQL', 'Redis', 'MongoDB', 'Node.js', 'Express', 'Fastify', 'FastAPI', 'Spring Boot', 'Prisma', 'REST design'] },
   { label: 'Systems', items: ['Write-ahead logs', 'LSM trees', 'Idempotency', 'Transactional outbox', 'Crash & fault testing', 'Mutation testing', 'Property-based testing'] },
-  { label: 'AI & LLM', items: ['RAG', 'LangGraph', 'LangChain', 'MCP', 'Hugging Face', 'PyTorch', 'Agent evaluation'] },
+  { label: 'AI & LLM', items: ['RAG', 'LangGraph', 'LangChain', 'MCP', 'Amazon Bedrock', 'S3 Vectors', 'OpenTelemetry', 'Hugging Face', 'PyTorch', 'Agent evaluation'] },
   { label: 'Frontend & mobile', items: ['React', 'Next.js', 'React Native', 'Redux', 'Tailwind'] },
   { label: 'Infra & tooling', items: ['Docker', 'GitHub Actions', 'Cloudflare Workers', 'Render', 'Neon', 'AWS EC2', 'k6', 'Linux'] },
 ]
@@ -37,6 +37,9 @@ export const skillAliases = {
   'AWS EC2': ['aws ec2'],
   k6: ['k6'],
   LangGraph: ['langgraph'],
+  'Amazon Bedrock': ['bedrock'],
+  'S3 Vectors': ['s3 vectors'],
+  OpenTelemetry: ['opentelemetry'],
   LangChain: ['langchain'],
   MCP: ['mcp'],
   PyTorch: ['pytorch'],
